@@ -1,0 +1,54 @@
+# ──────────────────────────────────────────────────────────────────────────────
+#  neoforge.mods.toml  –  NeoForge mod metadata
+#
+#  The ${...} placeholders are expanded by the processResources Gradle task
+#  defined in build.gradle.  Do NOT hard-code the version strings here.
+# ──────────────────────────────────────────────────────────────────────────────
+
+modLoader   = "javafml"
+loaderVersion = "${loader_version_range}"
+license     = "MIT"
+
+# ── Optional issue tracker URL ────────────────────────────────────────────────
+[[issueTrackerURL]]
+# issueTrackerURL = "https://github.com/yourname/raftmod/issues"
+
+# ── Mod block ─────────────────────────────────────────────────────────────────
+[[mods]]
+modId       = "${mod_id}"
+version     = "${mod_version}"
+displayName = "${mod_name}"
+description = '''
+${mod_description}
+
+A raft-survival experience for NeoForge 1.21.1.
+Build and expand your ocean raft, collect floating loot with
+the grappling hook, and survive the open sea.
+'''
+
+# Optional: path to a logo image inside the jar (assets/raftmod/icon.png)
+# logoFile = "raftmod.png"
+
+authors     = "${mod_authors}"
+# credits   = ""
+
+# ── Update JSON (optional) ─────────────────────────────────────────────────────
+# updateJSONURL = "https://yoursite.com/raftmod/updates.json"
+
+# ── Dependencies ──────────────────────────────────────────────────────────────
+
+# NeoForge itself
+[[dependencies.${mod_id}]]
+    modId       = "neoforge"
+    type        = "required"
+    versionRange = "${neo_version_range}"
+    ordering    = "NONE"
+    side        = "BOTH"
+
+# Minecraft version lock
+[[dependencies.${mod_id}]]
+    modId       = "minecraft"
+    type        = "required"
+    versionRange = "${minecraft_version_range}"
+    ordering    = "NONE"
+    side        = "BOTH"
