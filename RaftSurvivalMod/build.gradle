@@ -1,0 +1,57 @@
+// ─── build.gradle ────────────────────────────────────────────────────────────
+// NeoForge 1.21.1 | Gradle 8 | Java 21
+plugins {
+    id 'java'
+    id 'eclipse'
+    id 'idea'
+    id 'net.neoforged.gradle.userdev' version '7.0.142'
+}
+
+version   = "1.0.0"
+group     = "com.raftmod"
+
+base { archivesName = "raftmod" }
+
+java { toolchain { languageVersion = JavaLanguageVersion.of(21) } }
+
+runs {
+    configureEach {
+        systemProperty 'forge.logging.markers',  'REGISTRIES'
+        systemProperty 'forge.logging.console.level', 'debug'
+        modSource project.sourceSets.main
+    }
+    client { }
+    server { programArgument '--nogui' }
+}
+
+dependencies {
+    // NeoForge 1.21.1  —  change the version to the exact build you target
+    implementation "net.neoforged:neoforge:21.1.86"
+}
+
+// Automatically includes all resources on the classpath
+processResources {
+    def replaceProperties = [
+        minecraft_version      : "1.21.1",
+        minecraft_version_range: "[1.21,1.22)",
+        neo_version            : "21.1.86",
+        neo_version_range      : "[21.1,22)",
+        loader_version_range   : "[4,)",
+        mod_id                 : "raftmod",
+        mod_name               : "Raft Survival",
+        mod_version            : version,
+        mod_authors            : "YourName",
+        mod_description        : "Ocean raft survival mod"
+    ]
+    inputs.properties replaceProperties
+    filesMatching(['META-INF/neoforge.mods.toml']) {
+        expand replaceProperties
+    }
+}
+
+jar { manifest { attributes(['Specification-Title'    : 'raftmod',
+                              'Specification-Vendor'   : 'raftmodauthor',
+                              'Specification-Version'  : '1',
+                              'Implementation-Title'   : project.name,
+                              'Implementation-Version' : project.jar.archiveVersion,
+                              'Implementation-Vendor'  : 'raftmodauthor']) } }
